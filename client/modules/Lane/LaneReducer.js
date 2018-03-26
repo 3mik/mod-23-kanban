@@ -1,5 +1,5 @@
 // Import Actions
-import { CREATE_LANE, UPDATE_LANE, DELETE_LANE } from './LaneActions';
+import { CREATE_LANE, UPDATE_LANE, DELETE_LANE, EDIT_LANE } from './LaneActions';
 import { CREATE_NOTE, DELETE_NOTE } from '../Note/NoteActions';
 
 // Initial State
@@ -25,8 +25,8 @@ export default function lanes(state = initialState, action) {
           const notes = [...lane.notes, action.note.id];
           return { ...lane, notes };
         }
-      return lane;
-    });
+        return lane;
+      });
     
     case DELETE_NOTE:
       return state.map(lane => {
@@ -34,8 +34,16 @@ export default function lanes(state = initialState, action) {
           const notes = lane.notes.filter(note => note.id !== action.note.id);
           return {...lane, notes}
         }
-      return lane  
-    })
+        return lane  
+      })
+
+    case EDIT_LANE:
+      return state.map(lane => {
+        if(lane.id === action.id) {
+            //select lane and set prop editing
+        }
+        return lane
+      })
 
     default:
       return state;
